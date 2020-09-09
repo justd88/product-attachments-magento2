@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * File: AttachmentInterface.php
@@ -24,7 +24,7 @@ interface AttachmentInterface extends ExtensibleDataInterface
     /**
      * @return int
      */
-    public function getProductId() : int;
+    public function getProductId(): int;
 
 
     /**
@@ -32,13 +32,13 @@ interface AttachmentInterface extends ExtensibleDataInterface
      *
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentInterface
      */
-    public function setProductId(int $id) : AttachmentInterface;
+    public function setProductId(int $id): AttachmentInterface;
 
 
     /**
      * @return string
      */
-    public function getTitle() : string;
+    public function getTitle(): string;
 
 
     /**
@@ -46,13 +46,13 @@ interface AttachmentInterface extends ExtensibleDataInterface
      *
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentInterface
      */
-    public function setTitle(string $title) : AttachmentInterface;
+    public function setTitle(string $title): AttachmentInterface;
 
 
     /**
      * @return int
      */
-    public function getSortOrder() : int;
+    public function getSortOrder(): int;
 
 
     /**
@@ -60,13 +60,13 @@ interface AttachmentInterface extends ExtensibleDataInterface
      *
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentInterface
      */
-    public function setSortOrder(int $sortOrder) : AttachmentInterface;
+    public function setSortOrder(int $sortOrder): AttachmentInterface;
 
 
     /**
      * @return string
      */
-    public function getAttachmentType() : string;
+    public function getAttachmentType(): string;
 
 
     /**
@@ -74,7 +74,7 @@ interface AttachmentInterface extends ExtensibleDataInterface
      *
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentInterface
      */
-    public function setAttachmentType(string $attachmentType) : AttachmentInterface;
+    public function setAttachmentType(string $attachmentType): AttachmentInterface;
 
 
     /**
@@ -82,7 +82,7 @@ interface AttachmentInterface extends ExtensibleDataInterface
      *
      * @return string|null
      */
-    public function getAttachmentFile() : ?string;
+    public function getAttachmentFile(): ?string;
 
 
     /**
@@ -90,13 +90,13 @@ interface AttachmentInterface extends ExtensibleDataInterface
      *
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentInterface
      */
-    public function setAttachmentFile(string $attachmentFile) : AttachmentInterface;
+    public function setAttachmentFile(string $attachmentFile): AttachmentInterface;
 
 
     /**
      * @return \Magento\Downloadable\Api\Data\File\ContentInterface|null
      */
-    public function getAttachmentFileContent() : ?ContentInterface;
+    public function getAttachmentFileContent(): ?ContentInterface;
 
 
     /**
@@ -104,13 +104,13 @@ interface AttachmentInterface extends ExtensibleDataInterface
      *
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentInterface
      */
-    public function setAttachmentFileContent(ContentInterface $attachmentFileContent = null) : AttachmentInterface;
+    public function setAttachmentFileContent(ContentInterface $attachmentFileContent = null): AttachmentInterface;
 
 
     /**
      * @return string|null
      */
-    public function getAttachmentUrl() : ?string;
+    public function getAttachmentUrl(): ?string;
 
 
     /**
@@ -118,18 +118,30 @@ interface AttachmentInterface extends ExtensibleDataInterface
      *
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentInterface
      */
-    public function setAttachmentUrl(string $attachmentUrl) : AttachmentInterface;
+    public function setAttachmentUrl(string $attachmentUrl): AttachmentInterface;
 
 
     /**
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentExtensionInterface | null
      */
-    public function getExtensionAttributes() : ?AttachmentExtensionInterface;
+    public function getExtensionAttributes(): ?AttachmentExtensionInterface;
 
 
     /**
      * @param \LizardMedia\ProductAttachment\Api\Data\AttachmentExtensionInterface $extensionAttributes
      * @return \LizardMedia\ProductAttachment\Api\Data\AttachmentInterface
      */
-    public function setExtensionAttributes(AttachmentExtensionInterface $extensionAttributes) : AttachmentInterface;
+    public function setExtensionAttributes(AttachmentExtensionInterface $extensionAttributes): AttachmentInterface;
+
+    /**
+     * @return int|null
+     */
+    public function getAttachmentCategory(): ?int;
+
+    public function getAttachmentCategoryLabel(): ?string;
+    /**
+     * @param int $int
+     * @return AttachmentInterface
+     */
+    public function setAttachmentCategory(int $int): AttachmentInterface;
 }

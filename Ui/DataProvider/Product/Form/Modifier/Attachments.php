@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * File: Attachements.php
@@ -12,6 +12,7 @@ declare(strict_types = 1);
 namespace LizardMedia\ProductAttachment\Ui\DataProvider\Product\Form\Modifier;
 
 use LizardMedia\ProductAttachment\Model\Attachment;
+use LizardMedia\ProductAttachment\Model\AttachmentCategory;
 use LizardMedia\ProductAttachment\Ui\DataProvider\Product\Form\Modifier\Data\Attachments as AttachmentsData;
 use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
@@ -60,6 +61,11 @@ class Attachments extends AbstractModifier
     private $storeManager;
 
     /**
+     * @var AttachmentCategory
+     */
+    private $category;
+
+    /**
      * @param AttachmentsData $attachmentsData
      * @param LocatorInterface $locator
      * @param TypeUpload $typeUpload
@@ -70,24 +76,27 @@ class Attachments extends AbstractModifier
     public function __construct(
         AttachmentsData $attachmentsData,
         LocatorInterface $locator,
+        AttachmentCategory $category,
         TypeUpload $typeUpload,
         ArrayManager $arrayManager,
         UrlInterface $urlBuilder,
         StoreManagerInterface $storeManager
-    ) {
+    )
+    {
         $this->attachmentsData = $attachmentsData;
         $this->locator = $locator;
         $this->typeUpload = $typeUpload;
         $this->arrayManager = $arrayManager;
         $this->urlBuilder = $urlBuilder;
         $this->storeManager = $storeManager;
+        $this->category = $category;
     }
 
     /**
      * @param array $data
      * @return array $data
      */
-    public function modifyData(array $data) : array
+    public function modifyData(array $data): array
     {
         $model = $this->locator->getProduct();
 
@@ -101,7 +110,7 @@ class Attachments extends AbstractModifier
      * @param array $meta
      * @return array $meta
      */
-    public function modifyMeta(array $meta) : array
+    public function modifyMeta(array $meta): array
     {
         $attachmentsPath = Composite::CHILDREN_PATH . DIRECTORY_SEPARATOR . Composite::CONTAINER_ATTACHMENTS;
         $attachmentsContainer['arguments']['data']['config'] = [
@@ -145,7 +154,7 @@ class Attachments extends AbstractModifier
     /**
      * @return array
      */
-    private function getDynamicRows() : array
+    private function getDynamicRows(): array
     {
         $dynamicRows['arguments']['data']['config'] = [
             'addButtonLabel' => __('Add attachment'),
@@ -155,7 +164,7 @@ class Attachments extends AbstractModifier
             'columnsHeader' => true,
             'additionalClasses' => 'admin__field-wide',
             'dataScope' => 'downloadable',
-            'deleteProperty'=> 'is_delete',
+            'deleteProperty' => 'is_delete',
             'deleteValue' => '1',
         ];
 
@@ -166,7 +175,7 @@ class Attachments extends AbstractModifier
     /**
      * @return array
      */
-    private function getRecord() : array
+    private function getRecord(): array
     {
         $record['arguments']['data']['config'] = [
             'componentType' => Container::NAME,
@@ -205,7 +214,7 @@ class Attachments extends AbstractModifier
     /**
      * @return array
      */
-    private function getTitleColumn() : array
+    private function getTitleColumn(): array
     {
         $titleContainer['arguments']['data']['config'] = [
             'componentType' => Container::NAME,
@@ -231,7 +240,7 @@ class Attachments extends AbstractModifier
     /**
      * @return array
      */
-    private function getAttachmentColumn() : array
+    private function getAttachmentColumn(): array
     {
         $attachmentContainer['arguments']['data']['config'] = [
             'componentType' => Container::NAME,
@@ -250,6 +259,14 @@ class Attachments extends AbstractModifier
             'options' => $this->typeUpload->toOptionArray(),
             'typeFile' => 'attachment_file',
             'typeUrl' => 'attachment_url',
+        ];
+
+        $attachmentCategory['arguments']['data']['config'] = [
+            'formElement' => Form\Element\Select::NAME,
+            'componentType' => Form\Field::NAME,
+            'dataType' => Form\Element\DataType\Text::NAME,
+            'dataScope' => 'attachment_category',
+            'options' => $this->category->toOptionArray()
         ];
 
         $attachmentUrl['arguments']['data']['config'] = [
@@ -286,6 +303,7 @@ class Attachments extends AbstractModifier
             'children',
             $attachmentContainer,
             [
+                'attachment_category' => $attachmentCategory,
                 'attachment_type' => $attachmentType,
                 'attachment_url' => $attachmentUrl,
                 'attachment_file' => $attachmentUploader,

@@ -276,6 +276,10 @@ class AttachmentRepository implements AttachmentRepositoryInterface
         $dataObject->setProductId($resourceData->getProductId());
         $dataObject->setAttachmentType($resourceData->getAttachmentType());
 
+        if($resourceData->getAttachmentCategory()) {
+            $dataObject->setAttachmentCategory($resourceData->getAttachmentCategory());
+        }
+
         if ($resourceData->getAttachmentFile()) {
             $dataObject->setAttachmentFile($resourceData->getAttachmentFile());
         }
@@ -348,6 +352,7 @@ class AttachmentRepository implements AttachmentRepositoryInterface
             Attachment::ATTACHMENT_TYPE => $attachment->getAttachmentType(),
             Attachment::SORT_ORDER => $attachment->getSortOrder(),
             Attachment::TITLE => $attachment->getTitle(),
+            Attachment::ATTACHMENT_CATEGORY => $attachment->getAttachmentCategory(),
         ];
 
         if ($attachment->getAttachmentType() === Download::LINK_TYPE_FILE

@@ -7,6 +7,7 @@
             <thead>
             <tr>
                 <th scope="col" class="col title"><?= __('Title') ?></th>
+                <th scope="col" class="col title"><?= __('Type') ?></th>
             </tr>
             </thead>
             <tbody>
@@ -19,6 +20,11 @@
                             <?= $block->getIsOpenInNewWindow() ? 'onclick="this.target=\'_blank\'"' : '' ?>>
                             <?= $block->escapeHtml($attachment->getTitle()) ?>
                         </a>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Title')) ?>" class="col title">
+                        <span>
+                            <?= $block->escapeHtml($attachment->getAttachmentCategoryLabel()) ?>
+                        </span>
                     </td>
                 </tr>
             <?php endforeach; ?>

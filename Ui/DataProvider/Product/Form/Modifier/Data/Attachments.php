@@ -116,6 +116,7 @@ class Attachments
                 $attachmentData = [];
                 $attachmentData[AttachmentModel::ID] = (int) $attachment->getId() ?: 0;
                 $attachmentData[AttachmentModel::TITLE] = $this->escaper->escapeHtml($attachment->getTitle());
+                $attachmentData[AttachmentModel::ATTACHMENT_CATEGORY] = $attachment->getAttachmentCategory();
                 $attachmentData[AttachmentModel::ATTACHMENT_URL] = $attachment->getAttachmentUrl();
                 $attachmentData[AttachmentModel::ATTACHMENT_TYPE] = $attachment->getAttachmentType();
                 $attachmentData[AttachmentModel::SORT_ORDER] = $attachment->getSortOrder();

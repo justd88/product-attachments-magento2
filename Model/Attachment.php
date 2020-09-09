@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * File: Attachment.php
@@ -16,6 +16,8 @@ use LizardMedia\ProductAttachment\Api\Data\AttachmentInterface;
 use LizardMedia\ProductAttachment\Model\ResourceModel\Attachment as AttachmentResource;
 use Magento\Downloadable\Api\Data\File\ContentInterface;
 use Magento\Downloadable\Model\ComponentInterface;
+use Magento\Framework\Api\AttributeValueFactory;
+use Magento\Framework\Api\ExtensionAttributesFactory;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractExtensibleModel;
@@ -51,6 +53,7 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
     const ATTACHMENT_FILE = 'attachment_file';
     const ATTACHMENT_FILE_CONTENT = 'attachment_file_content';
     const ATTACHMENT_URL = 'attachment_url';
+    const ATTACHMENT_CATEGORY = 'attachment_category';
 
 
     /**
@@ -131,16 +134,16 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
     /**
      * @return int
      */
-    public function getProductId() : int
+    public function getProductId(): int
     {
-        return (int) $this->getData(self::PRODUCT_ID);
+        return (int)$this->getData(self::PRODUCT_ID);
     }
 
     /**
      * @param int $id
      * @return AttachmentInterface
      */
-    public function setProductId(int $id) : AttachmentInterface
+    public function setProductId(int $id): AttachmentInterface
     {
         return $this->setData(self::PRODUCT_ID, $id);
     }
@@ -148,16 +151,16 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
     /**
      * @return string
      */
-    public function getTitle() : string
+    public function getTitle(): string
     {
-        return (string) $this->getData(self::TITLE);
+        return (string)$this->getData(self::TITLE);
     }
 
     /**
      * @param string $title
      * @return AttachmentInterface
      */
-    public function setTitle(string $title) : AttachmentInterface
+    public function setTitle(string $title): AttachmentInterface
     {
         return $this->setData(self::TITLE, $title);
     }
@@ -165,16 +168,16 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
     /**
      * @return int
      */
-    public function getSortOrder() : int
+    public function getSortOrder(): int
     {
-        return (int) $this->getData(self::SORT_ORDER);
+        return (int)$this->getData(self::SORT_ORDER);
     }
 
     /**
      * @param int $sortOrder
      * @return AttachmentInterface
      */
-    public function setSortOrder(int $sortOrder) : AttachmentInterface
+    public function setSortOrder(int $sortOrder): AttachmentInterface
     {
         return $this->setData(self::SORT_ORDER, $sortOrder);
     }
@@ -182,16 +185,16 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
     /**
      * @return string
      */
-    public function getAttachmentType() : string
+    public function getAttachmentType(): string
     {
-        return (string) $this->getData(self::ATTACHMENT_TYPE);
+        return (string)$this->getData(self::ATTACHMENT_TYPE);
     }
 
     /**
      * @param string $attachmentType
      * @return AttachmentInterface
      */
-    public function setAttachmentType(string $attachmentType) : AttachmentInterface
+    public function setAttachmentType(string $attachmentType): AttachmentInterface
     {
         return $this->setData(self::ATTACHMENT_TYPE, $attachmentType);
     }
@@ -200,7 +203,7 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
      * Relative file path
      * @return string|null
      */
-    public function getAttachmentFile() : ?string
+    public function getAttachmentFile(): ?string
     {
         return $this->getData(self::ATTACHMENT_FILE);
     }
@@ -209,7 +212,7 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
      * @param string $attachmentFile
      * @return AttachmentInterface
      */
-    public function setAttachmentFile(string $attachmentFile) : AttachmentInterface
+    public function setAttachmentFile(string $attachmentFile): AttachmentInterface
     {
         return $this->setData(self::ATTACHMENT_FILE, $attachmentFile);
     }
@@ -217,7 +220,7 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
     /**
      * @return ContentInterface|null
      */
-    public function getAttachmentFileContent() : ?ContentInterface
+    public function getAttachmentFileContent(): ?ContentInterface
     {
         return $this->getData(self::ATTACHMENT_FILE_CONTENT);
     }
@@ -226,7 +229,7 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
      * @param ContentInterface $attachmentFileContent
      * @return AttachmentInterface
      */
-    public function setAttachmentFileContent(ContentInterface $attachmentFileContent = null) : AttachmentInterface
+    public function setAttachmentFileContent(ContentInterface $attachmentFileContent = null): AttachmentInterface
     {
         return $this->setData(self::ATTACHMENT_FILE_CONTENT, $attachmentFileContent);
     }
@@ -234,7 +237,7 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
     /**
      * @return string|null
      */
-    public function getAttachmentUrl() : ?string
+    public function getAttachmentUrl(): ?string
     {
         return $this->getData(self::ATTACHMENT_URL);
     }
@@ -243,7 +246,7 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
      * @param string $attachmentUrl
      * @return AttachmentInterface
      */
-    public function setAttachmentUrl(string $attachmentUrl) : AttachmentInterface
+    public function setAttachmentUrl(string $attachmentUrl): AttachmentInterface
     {
         return $this->setData(self::ATTACHMENT_URL, $attachmentUrl);
     }
@@ -251,7 +254,7 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
     /**
      * @return AttachmentExtensionInterface | null
      */
-    public function getExtensionAttributes() : ?AttachmentExtensionInterface
+    public function getExtensionAttributes(): ?AttachmentExtensionInterface
     {
         return $this->_getExtensionAttributes();
     }
@@ -260,8 +263,23 @@ class Attachment extends AbstractExtensibleModel implements AttachmentInterface,
      * @param AttachmentExtensionInterface $extensionAttributes
      * @return AttachmentInterface
      */
-    public function setExtensionAttributes(AttachmentExtensionInterface $extensionAttributes) : AttachmentInterface
+    public function setExtensionAttributes(AttachmentExtensionInterface $extensionAttributes): AttachmentInterface
     {
         return $this->_setExtensionAttributes($extensionAttributes);
+    }
+
+    public function getAttachmentCategory(): ?int
+    {
+        return $this->getData(self::ATTACHMENT_CATEGORY) ? (int)$this->getData(self::ATTACHMENT_CATEGORY) : null;
+    }
+
+    public function getAttachmentCategoryLabel(): string
+    {
+        return (string)__(AttachmentCategory::categories[$this->getAttachmentCategory()] ?? '');
+    }
+
+    public function setAttachmentCategory(int $category): AttachmentInterface
+    {
+        return $this->setData(self::ATTACHMENT_CATEGORY, $category);
     }
 }
