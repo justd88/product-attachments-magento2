@@ -39,3 +39,22 @@
 
 ### 1.3.5 ###
 * do not show attachment tab on product page with no attachments
+
+### 1.3.6 ###
+* PHP 7.4 compatibility
+* fix for windows issues in adminhtml
+* changing visibility of helper function in block
+
+
+### 1.3.7 ###
+* fix constant attachment re-saving
+* fix for stale downloaded files in magento root
+
+### 1.3.8 ###
+* fix for not saving attachment
+
+### 1.3.9 ###
+* compatibility with bundle and grouped product for Magento 2.3 and 2.4 
+
+### 1.3.10 ###
+* fix for title - attachment binding
